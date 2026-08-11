@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Heading from "@/src/shared/components/typography/Heading";
 
 export const metadata: Metadata = {
   title: "Iniciar Sesión"
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
 export default function LoginPage() {
   return (
     <>
-      <h1>Iniciar Sesión</h1>
+      <Heading>Iniciar Sesión</Heading>
     </>
   )
 }
