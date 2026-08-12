@@ -13,4 +13,7 @@ export const SignUpSchema = BaseAuthSchema.pick({
     email: true,
     password: true,
     passwordConfirmation: true,
+}).refine((data) => data.password === data.passwordConfirmation, {
+    error: "Las contraseñas no coinciden",
+    path: ["passwordConfirmation"]
 });

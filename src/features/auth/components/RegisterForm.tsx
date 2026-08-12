@@ -9,7 +9,8 @@ import FormError from "@/src/shared/components/forms/FormError";
 export default function RegisterForm() {
 
   const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: zodResolver(SignUpSchema)
+    resolver: zodResolver(SignUpSchema),
+    mode: "onSubmit" // TODO: Change it to 'all'
   });
   console.log(errors);
 
