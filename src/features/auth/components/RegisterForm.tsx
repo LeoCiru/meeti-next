@@ -3,19 +3,19 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form,FormInput,FormLabel, FormSubmit } from "@/src/shared/components/forms";
-import { SignUpSchema } from "../schemas/authSchema";
+import { SignUpInput, SignUpSchema } from "../schemas/authSchema";
 import FormError from "@/src/shared/components/forms/FormError";
 
 export default function RegisterForm() {
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(SignUpSchema),
-    mode: "onSubmit" // TODO: Change it to 'all'
+    mode: "all",
   });
   console.log(errors);
 
-  const onSubmit = () => {
-    console.log("Submit...");
+  const onSubmit = (data : SignUpInput) => {
+    console.log(data);
     
   }
   return (

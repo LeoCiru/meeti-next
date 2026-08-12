@@ -1,10 +1,10 @@
-import z, { email } from "zod";
+import z from "zod";
 
 export const BaseAuthSchema = z.object({
-    name: z.string().min(1, {error: "El nombre es obligatorio"}),
+    name: z.string().trim().min(1, {error: "El nombre es obligatorio"}),
     email: z.email({error: "El email no es válido"}),
-    password: z.string().min(8, {error: "La contraseña debe ser mínima de 8 caracteres"}),
-    passwordConfirmation: z.string().min(1, {error: "La contraseña no puede estar vacía"})
+    password: z.string().trim().min(8, {error: "La contraseña debe ser mínima de 8 caracteres"}),
+    passwordConfirmation: z.string().trim().min(1, {error: "La contraseña no puede estar vacía"})
 });
 
 
@@ -17,3 +17,5 @@ export const SignUpSchema = BaseAuthSchema.pick({
     error: "Las contraseñas no coinciden",
     path: ["passwordConfirmation"]
 });
+
+export type SignUpInput = z.infer<typeof SignUpSchema>
