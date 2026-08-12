@@ -1,11 +1,23 @@
-import { Form,FormInput,FormLabel, FormSubmit } from "@/src/shared/components/forms";
+"use client"
+
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Form,FormInput,FormLabel, FormSubmit } from "@/src/shared/components/forms";
+import { SignUpSchema } from "../schemas/authSchema";
 
 export default function RegisterForm() {
 
-  const { register,  } = useForm()
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: zodResolver(SignUpSchema)
+  });
+  console.log(errors);
+
+  const onSubmit = () => {
+    console.log("Submit...");
+    
+  }
   return (
-    <Form>
+    <Form onSubmit={handleSubmit(onSubmit)}>
         <FormLabel htmlFor="name">Nombre</FormLabel>
         <FormInput type="text" id="name" placeholder="Ingresa tu nombre" {...register("name")} />
 
