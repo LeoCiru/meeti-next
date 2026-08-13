@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form,FormInput,FormLabel, FormSubmit } from "@/src/shared/components/forms";
 import { SignUpInput, SignUpSchema } from "../schemas/authSchema";
 import FormError from "@/src/shared/components/forms/FormError";
+import { signUpAction } from "../actions/auth-actions";
 
 export default function RegisterForm() {
 
@@ -12,11 +13,9 @@ export default function RegisterForm() {
     resolver: zodResolver(SignUpSchema),
     mode: "all",
   });
-  console.log(errors);
 
-  const onSubmit = (data : SignUpInput) => {
-    console.log(data);
-    
+  const onSubmit = async (data : SignUpInput) => {
+    await signUpAction(data);
   }
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
