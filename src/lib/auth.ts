@@ -8,5 +8,8 @@ export const auth = betterAuth({
         provider: "pg",
         usePlural: true,
     }),
-    plugins: [nextCookies()]
-})
+    emailAndPassword: {
+        enabled: true,
+    },
+    plugins: [nextCookies()],
+});
