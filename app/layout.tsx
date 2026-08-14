@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -18,7 +19,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="es"
       className={`${outfit.variable} h-full antialiased bg-white`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+
+        <Toaster position="top-right" />
+      </body>
     </html>
   );
 }

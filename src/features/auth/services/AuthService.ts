@@ -20,6 +20,11 @@ class AuthService {
                 password
             }
         })
+
+        return {
+            error: "",
+            success: "¡Cuenta creada correctamente! Revisa tu email.",
+        }
     }
 }
 

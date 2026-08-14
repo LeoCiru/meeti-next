@@ -11,10 +11,11 @@ export async function signUpAction(input : SignUpInput) {
     if (!data.success) {
         return {
             error: "Hubo un error",
-            sucess: "",
+            success: "",
         }
     }
 
-    await authService.register(data.data);
+    const response = await authService.register(data.data);
+    return response;
     
 }
