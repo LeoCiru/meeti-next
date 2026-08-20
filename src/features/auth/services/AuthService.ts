@@ -10,7 +10,14 @@ class AuthService {
         const { email, name, password } = credentials;
         
         // Revisar si el usuario existe
-        await this.authRepository.userExists(email);
+        const user = await this.authRepository.userExists(email);
+
+        if (user) {
+            return {
+                error: "Este email ya está registrado.",
+                success: "",
+            }
+        }
 
         // Validación de negocio
 
