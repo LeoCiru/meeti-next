@@ -1,13 +1,16 @@
 import { auth } from "@/src/lib/auth";
 import { SignUpInput } from "../schemas/authSchema";
+import { authRepository, IAuthRepository } from './AuthRepository';
 
 class AuthService {
+
+    constructor(private authRepository : IAuthRepository) {}
 
     async register(credentials : SignUpInput) {
         const { email, name, password } = credentials;
         
         // Revisar si el usuario existe
-
+        await this.authRepository.userExists(email);
 
         // Validación de negocio
 
@@ -28,4 +31,4 @@ class AuthService {
     }
 }
 
-export const authService = new AuthService();
+export const authService = new AuthService(authRepository);
