@@ -30,4 +30,7 @@ export async function signInAction(input: SignInInput) {
             success: ""
         }
     }
+
+    const response = await authService.login(data.data);
+    return response;
 }

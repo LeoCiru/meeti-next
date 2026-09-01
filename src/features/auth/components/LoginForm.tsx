@@ -6,6 +6,7 @@ import { Form, FormInput, FormLabel, FormSubmit } from "@/src/shared/components/
 import { SignInInput, SignInSchema } from "../schemas/authSchema"
 import FormError from "@/src/shared/components/forms/FormError"
 import { signInAction } from "../actions/auth-actions"
+import toast from "react-hot-toast"
 
 
 export default function LoginForm() {
@@ -16,7 +17,15 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (data: SignInInput) => {
-    await signInAction(data);
+    const { success, error } = await signInAction(data);
+
+    if (error) {
+      toast.error(error);
+    }
+
+    if (success) {
+      toast.success(success);
+    }
   }
 
   return (

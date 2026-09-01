@@ -1,5 +1,5 @@
 import { auth } from "@/src/lib/auth";
-import { SignUpInput } from "../schemas/authSchema";
+import { SignInInput, SignUpInput } from "../schemas/authSchema";
 import { authRepository, IAuthRepository } from './AuthRepository';
 
 class AuthService {
@@ -35,6 +35,26 @@ class AuthService {
             error: "",
             success: "¡Cuenta creada correctamente! Revisa tu email.",
         }
+    }
+
+    async login(credentials: SignInInput) {
+        const { email, password } = credentials;
+        
+        // Revisar si el usuario existe
+        const user = await this.authRepository.userExists(email);
+
+        if (!user) {
+            return {
+                error: "Este usuario no existe.",
+                success: "",
+            }
+        }
+        
+        return {
+            error: "",
+            success: "",
+        }
+        // Verificar password y si se confirmó cuenta
     }
 }
 
