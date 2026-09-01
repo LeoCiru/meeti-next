@@ -2,7 +2,8 @@ import { auth } from "@/src/lib/auth";
 import { SignInInput, SignUpInput } from "../schemas/authSchema";
 import { authRepository, IAuthRepository } from './AuthRepository';
 import { headers } from "next/headers";
-import { APIError } from "better-auth";
+import { APIError, success } from "better-auth";
+import toast from "react-hot-toast";
 
 class AuthService {
 
@@ -68,8 +69,17 @@ class AuthService {
             }
         } catch (error) {
             if (error instanceof APIError) {
-                console.log(error.statusCode);
-                console.log(error.message);
+                const messages : Record<number, string> = {
+                    401: "Password incorrecto"
+                }
+
+                const errorMessage = messages[error.statusCode];
+                if (errorMessage) {
+                    return {
+                        error: errorMessage,
+                        success: ""
+                    }
+                }
             }
         }
 
