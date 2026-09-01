@@ -1,6 +1,8 @@
 import { auth } from "@/src/lib/auth";
 import { SignInInput, SignUpInput } from "../schemas/authSchema";
 import { authRepository, IAuthRepository } from './AuthRepository';
+import { headers } from "next/headers";
+import { APIError } from "better-auth";
 
 class AuthService {
 
@@ -49,12 +51,32 @@ class AuthService {
                 success: "",
             }
         }
-        
+
+        // Verificar password y si se confirmó cuenta
+        try {
+            await auth.api.signInEmail({
+                body: {
+                    email,
+                    password,
+                    callbackURL: "/dashboard"
+                },
+                headers: await headers()
+            })
+            return {
+                error: "",
+                success: "Sesión iniciada correctamente"
+            }
+        } catch (error) {
+            if (error instanceof APIError) {
+                console.log(error.statusCode);
+                console.log(error.message);
+            }
+        }
+
         return {
             error: "",
             success: "",
         }
-        // Verificar password y si se confirmó cuenta
     }
 }
 
